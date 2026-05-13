@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+venv/
+*.pyc
+*.pkl
+*.h5
+*.pt
+*.pth
+datasets/
+logs/
+.env

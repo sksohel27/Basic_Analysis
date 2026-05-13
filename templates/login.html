@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizAnalytics — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #0f1117;
+    --paper:  #f7f5f0;
+    --accent: #2d6a4f;
+    --accent2:#52b788;
+    --muted:  #6b7280;
+    --border: #e2ded7;
+    --error:  #c0392b;
+    --success:#2d6a4f;
+    --warn:   #d97706;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: var(--paper); }
+
+  body { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+
+  /* ── Left panel ── */
+  .panel-left {
+    background: var(--ink);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .panel-left::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 80%, rgba(45,106,79,.45) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 10%, rgba(82,183,136,.15) 0%, transparent 50%);
+  }
+  .brand { position: relative; z-index: 1; }
+  .brand-logo {
+    width: 44px; height: 44px;
+    background: var(--accent2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem; color: var(--ink); font-weight: 900;
+    margin-bottom: 1.5rem;
+  }
+  .brand h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: #fff; line-height: 1.1;
+    margin-bottom: .6rem;
+  }
+  .brand p { color: rgba(255,255,255,.55); font-size: .9rem; line-height: 1.6; max-width: 320px; }
+
+  .stats-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    position: relative; z-index: 1;
+  }
+  .stat-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px; padding: 1.2rem 1rem;
+  }
+  .stat-card .val { font-size: 1.5rem; font-weight: 700; color: var(--accent2); }
+  .stat-card .lbl { font-size: .75rem; color: rgba(255,255,255,.45); margin-top: .25rem; }
+
+  /* ── Right panel ── */
+  .panel-right {
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .login-box { width: 100%; max-width: 380px; }
+  .login-box h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem; color: var(--ink); margin-bottom: .4rem;
+  }
+  .login-box .subtitle { color: var(--muted); font-size: .88rem; margin-bottom: 2rem; }
+
+  .flash-list { list-style: none; margin-bottom: 1.2rem; }
+  .flash-list li {
+    padding: .7rem 1rem; border-radius: 8px; font-size: .85rem;
+    margin-bottom: .5rem;
+  }
+  .flash-list .error   { background: #fef2f2; color: var(--error); border-left: 3px solid var(--error); }
+  .flash-list .success { background: #f0fdf4; color: var(--success); border-left: 3px solid var(--accent2); }
+  .flash-list .warning { background: #fffbeb; color: var(--warn); border-left: 3px solid var(--warn); }
+  .flash-list .info    { background: #eff6ff; color: #1d4ed8; border-left: 3px solid #3b82f6; }
+
+  .field { margin-bottom: 1.2rem; }
+  .field label { display: block; font-size: .8rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; letter-spacing: .03em; text-transform: uppercase; }
+  .field input {
+    width: 100%; padding: .75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px; font-size: .95rem; font-family: 'DM Sans', sans-serif;
+    background: #fff; color: var(--ink);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+  }
+  .field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,106,79,.12); }
+
+  .btn-login {
+    width: 100%; padding: .85rem;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 10px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 600;
+    letter-spacing: .02em;
+    transition: background .2s, transform .1s;
+    margin-top: .5rem;
+  }
+  .btn-login:hover  { background: #1b4332; }
+  .btn-login:active { transform: scale(.98); }
+
+  .demo-hint {
+    margin-top: 1.8rem; padding: 1rem;
+    background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
+    font-size: .8rem; color: var(--muted);
+  }
+  .demo-hint strong { color: var(--accent); }
+  .demo-hint p { margin-bottom: .3rem; }
+
+  @media (max-width: 700px) {
+    body { grid-template-columns: 1fr; }
+    .panel-left { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="panel-left">
+  <div class="brand">
+    <div class="brand-logo">B</div>
+    <h1>BizAnalytics</h1>
+    <p>Customer intelligence platform. Get instant RFM scoring, churn prediction, and CLV analysis on your customer data.</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="val">RFM</div><div class="lbl">Recency · Frequency · Monetary</div></div>
+    <div class="stat-card"><div class="val">CLV</div><div class="lbl">Customer Lifetime Value</div></div>
+    <div class="stat-card"><div class="val">KMeans</div><div class="lbl">Auto segmentation</div></div>
+    <div class="stat-card"><div class="val">Churn</div><div class="lbl">Risk scoring</div></div>
+  </div>
+</div>
+
+<div class="panel-right">
+  <div class="login-box">
+    <h2>Welcome back</h2>
+    <p class="subtitle">Sign in to your analytics workspace</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for cat, msg in messages %}
+            <li class="{{ cat }}">{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@company.com" required autofocus>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-login">Sign In →</button>
+    </form>
+
+    <div class="demo-hint">
+      <p><strong>Demo credentials:</strong></p>
+      <p>Email: <strong>admin@bizanalytics.com</strong></p>
+      <p>Password: <strong>admin123</strong></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

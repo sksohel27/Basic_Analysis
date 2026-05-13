@@ -1,0 +1,23 @@
+# Local-only files — not needed on Vercel
+*.pbix
+*.sql
+*.log
+
+# Local runner scripts
+run_pipeline.py
+db_loader.py
+
+# Build artifacts
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Output and log folders (use /tmp on Vercel)
+outputs/
+logs/
+
+# Docs
+DAX_MEASURES.md
+GITHUB_UPLOAD_GUIDE.txt
